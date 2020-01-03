@@ -483,3 +483,27 @@
   \hypersetup{hidelinks} % can be customized if you don't want to hide links
 }
 
+%% Scala source code formatting 
+\lstset{
+    language=Scala,%
+    xleftmargin=4mm,%
+    aboveskip=3mm,%
+    belowskip=3mm,%
+    fontadjust=true,%
+    columns=[c]fixed,%
+    keepspaces=true,%
+    basewidth={0.58em, 0.53em},%
+    tabsize=2,%
+    basicstyle=\renewcommand{\baselinestretch}{0.95}\ttfamily,%
+    commentstyle=\itshape,%
+    keywordstyle=\bfseries,%
+    mathescape=true,%
+    escapechar=¤,%
+    captionpos=b,%
+    framerule=0.3pt,%
+    firstnumber=0,%
+    numbersep=1.5mm,%
+    numberstyle=\tiny,%
+}
+
+\newcommand{\code}[1]{\lstinline{#1}}
