@@ -66,20 +66,15 @@ Relies on utuftthesis.cls for the document class definitions.
 \end{comment}
 
 
-\pubyear{2018}
+\pubyear{2019}
+\pubmonth{11}
 
-\pubmonth{6}
-
-\publab{Labran nimi}
-
-\publaben{Laboratory Name}
-
-\pubtype{tkk}
-\title{Name of Thesis}
-\author{My Name}
+\pubtype{luk}
+\title{Funktionaalisen- ja olioparadigman suorituskykyvertailu Scala-kielellä}
+\author{Jaakko Paju}
 
 \maketitle
-\input{abstract.tex}
+%\input{abstract.tex}
 
 % empty pagestyle for table of contents etc.
 % otherwise you'll get simple page style with roman page numbers
@@ -117,37 +112,15 @@ underscores \_ in file names (may break hyperref).
 Good luck!
 \end{comment}
 
-\input{johdanto.tex}\input{toinenluku.tex}
+\input{johdanto.tex}
+\input{scala.tex}
 
-%\input{file_name_of_chapter_x}
-%\input{file_name_of_chapter_y}
-
-\begin{comment}
-The thesis main content ends here.
-\end{comment}
 \printbibliography
 
 \begin{comment}
 Create your appendix chapters with command \textbackslash appchapter\{some
 name\} instead of \textbackslash chapter\{some name\} for the automagic
 page counting to work!
-\end{comment}
-
-
-\appchapter{Liitedokumentti}
-
-Tässä esimerkki\pagebreak{}
-
-kaksisivuisesta liitteestä.
-
-\appchapter{Liitedokumentti 2}
-
-Tässä esimerkki\pagebreak{}
-
-toisesta kaksisivuisesta liitteestä.
-
-\begin{comment}
-main document ends here
 \end{comment}
 
 \end{document}
