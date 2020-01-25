@@ -1,0 +1,31 @@
+\chapter{Ohjelmointiparadigmat} \label{Ohjelmointiparadigmat}
+Ohjelmointiparadigmat luokittelevat ohjelmointikieliä sen perusteella, miten kieli on suunniteltu mallintamaan ongelmia ja minkälaisia mekanismeja kieli tarjoaa näiden ongelmien ratkaisuun. Yhdessä ohjelmointikielessä voi olla vaikutteita useammasta paradigmasta. Tälläistä kieltä kutsutaan \textit{moniparadigmaiseksi} kieleksi. Ohjelmointiparadigmat voi jakaa karkeasti kahteen yläluokkaan: \textit{imperatiivisiin} ja \textit{deklaratiivisiin}.
+\cite[Luku 6]{principlesAndParadigms}
+
+Imperatiiviset kielet keskittyvät ohjelmointiongelman ratkaisuun määrittelemällä \textit{miten} tietokoneen tulisi ratkaista ongelma. Ohjelmat siis rakentuvat peräkkäisistä käskyistä, jotka muokkaavat ohjelman tilaa ja näin lopulta ratkaisevat ongelman. Imperatiivisista kielistä puhutaan matalamman tason kielinä, sillä ongelman ratkaisu mallinnetaan niissä tietokoneen näkökulmasta.
+\cite[Luku 1]{programmingLanguagePragmatics} 
+
+Deklaratiiviset kielet ratkaisevat ongelman vastaamalla kysymykseen \textit{mitä} tietokoneen tulisi tehdä ongelman ratkaisemiseksi. Käytännössä tämä siis tarkoittaa ongelman ratkaisun kuvailemista ilman toteutuksen yksityiskohtiin uppoutumista. Deklaratiiviset mielletään yleensä korkeamman tason kielinä, sillä ne mallintavat ongelmanratkaisua ohjelmoijan näkökulmasta.
+\cite[Luku 1]{programmingLanguagePragmatics}
+
+
+\section{Olio-paradigma}
+Olio-ohjelmoinnnin perusajatus on kuvata ongelmaa olioiden avulla, jotka kukin kuvaavat jotakin ongelma-alueen käsitettä. Olioiden tarkoitus on kapseloida kuvaamansa käsitteen tieto ja tila sisäänsä, sekä tarjota operaatioita kapseloidun tiedon muokkaamiseen ja tarkasteluun. Olio-paradigma on osa imperatiivisia paradigmoja, sillä ongelmanratkaisu tapahtuu peräkkäisillä komennoilla, jotka muuttavat olioiden ja samalla koko ohjelman tilaa kohti ratkaistua ongelmaa. \cite[Luku 1]{programmingLanguagePragmatics}
+\cite[Luku 10]{principlesAndParadigms}
+
+
+\section{Funktionaalinen paradigma}
+Nimensä mukaisesti funktionaaliset ohjelmat perustuvat funktioihin. Näillä funktioilla ei ole tilaa, ja ne ovat puhtaita eli eivät aiheuta \textit{sivuvaikutuksia}. Tilattomuus ja puhtaus tarkoittaa että samalla syötteellä funktio palauttaa aina saman arvon, ei heitä poikkeusta eikä muuta ohjelman tilaa. \cite[Luku 1]{functionalProgrammingInScala} Ohjelmointikieli ilman sivuvaikutuksia olisi käytännössä hyödytön, joten funktionaaliset ohjelmointikielet tarjoavat erilaisia mekanismeja sivuvaikutusten hallintaan.  Funktionaalisen ohjelmoinnin katsotaan yleensä kuuluvan deklaratiiviseen paradigmaan. \cite[Luku 11]{principlesAndParadigms}
+
+
+\section{Paradigmoille tyypillsiä ominaisuuksia}
+Lauseke on ohjelmointikielen rakenne jonka suoritus tuottaa arvon. Lauseke voi koostua joko arvosta tai operaattorista jota on sovellettu yhteen tai useampaan lausekkeeseen. Esimerkiksi \code{3+2} on numeerinen lauseke, jossa on yksi operaattori \code{+} jota sovelletaan kahteen numeeriseen arvoon \code{3} ja \code{2}. Lausekkeen arvo voidaan sijoittaa muuttujaan, antaa parametriksi funktioon tai sen arvo voidaan palauttaa funktiosta. Lauseke on minkä tahansa ohjelmointikielen perusrakenne, eli lausekkeita on funktionaalisissa- sekä oliokielissä.
+\cite[Luku 6]{principlesAndParadigms}
+
+Funktionaalisessa- ja olio-paradigmassa molemmissa on muuttujia, mutta niitä käsitellään eri tavoilla. Funktionaalisissa kielissä muuttujiin sijoitettua arvoa ei voi muuttaa alustuksen jälkeen, kun taas imperatiivissa kielissä muuttujan arvoa voi yleensä muuttaa. Sama pätee tietorakenteisiin: imperatiivisssa kielissä niiden muuttaminen alustamisen jälkeen on sallittua, funktionaalisissa ei. \cite[Luku 3]{functionalProgrammingInScala} Funktionaalisissa kielissä funktioita kohdellaan kuin mitä tahansa muitakin arvoja: niitä voi sijoittaa muuttujiin, antaa parametrina toiseen funktioon tai käyttää funktion palautusarvona. Olio-kielissä tämä ei aina ole mahdollista.
+\cite[Luku 6]{principlesAndParadigms}
+
+Komento on ohjelmointikielen rakenne jonka suoritus ei aina tuota arvoa ja saattaa aiheuttaa sivuvaikutuksia. Komennot saattavat esimerkiksi muuttaa olioiden ja muuttujien tilaa, lukea käyttäjän tuottamaa syötettä tai heittää poikkeuksen. Komentojen suorittamisella saattaa olla sivuvaikutuksia, ja siitä syystä niiden suoritusjärjestys on merkityksellinen. Imperatiivisiin kieliin komennot kuuluvat oleellisesti, mutta funktionaalisiin kieliin eivät.
+
+Imperatiivisissa kielissä iterointia kuvataan silmukoilla, joissa tiettyä osaa ohjelmasta suoritetaan useita kertoja peräkkäin. Silmukkaa suoritetaan ennalta määritelty määrä, tai kunnes silmukan suoritusta säätelevä ehtolause muuttuu epätodeksi. Ehtolauseen arvo määräytyy muuttujan arvon mukaan, jota muutetaan silmukan suorituksen aikana. Funktionaalisissa kielissä muuttujien arvoa ei voi muuttaa, ja siitä syystä silmukat olisivat hyödyttömiä. Silmukoiden sijaan käytetään rekursiota, eli funktio kutsuu itseään kunnes funktioon määritelty perustapaus saavutetaan.
+\cite[Luku 6 ja 11]{principlesAndParadigms}
