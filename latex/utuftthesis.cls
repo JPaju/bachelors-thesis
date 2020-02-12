@@ -34,6 +34,7 @@
 \RequirePackage{xstring}          % string operations (number of pages etc.)
 \RequirePackage[page]{totalcount} % the total number of pages
 \RequirePackage{comment}          % LyX generated comments
+\RequirePackage{xcolor}
 
 %% not used by the class
 % if you encounter package clashes, start by disabling these
@@ -507,3 +508,4 @@
 }
 
 \newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\todo}[1]{{\color{red} TODO: {#1}}}
