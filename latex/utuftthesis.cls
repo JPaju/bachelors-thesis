@@ -40,6 +40,7 @@
 % if you encounter package clashes, start by disabling these
 \RequirePackage{graphicx}        % \includegraphics{file}, works without file extensions
 \RequirePackage{sverb}           % enhanced handling of verbatim stuff
+\RequirePackage{tikz}
 
 %% Custom package options
 %\DeclareStringOption[00]{year}
