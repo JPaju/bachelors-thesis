@@ -41,6 +41,8 @@
 \RequirePackage{graphicx}        % \includegraphics{file}, works without file extensions
 \RequirePackage{sverb}           % enhanced handling of verbatim stuff
 \RequirePackage{tikz}
+\RequirePackage{pgfplots}
+\RequirePackage{pgfplotstable}
 
 %% Custom package options
 %\DeclareStringOption[00]{year}
