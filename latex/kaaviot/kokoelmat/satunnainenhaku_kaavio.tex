@@ -1,0 +1,26 @@
+\pgfplotstableread{
+    collection  result
+    List        313253
+    Vector      62082283
+    Array       60777210
+    ArrayBuffer 72734680
+    ListBuffer  1107126
+}\hobson
+
+\begin{tikzpicture}
+    \begin{axis}[
+        at={(haoyi.south east)},
+        ybar,
+        width=12cm,
+        height=9cm,
+        ymin=0,
+        xtick=data,
+        title={Hobson},
+        symbolic x coords={List, Vector, Array, ArrayBuffer, ListBuffer}
+    ]
+    
+    \addplot table[x=collection, y=result]{\hobson};
+
+\end{axis}
+
+\end{tikzpicture}

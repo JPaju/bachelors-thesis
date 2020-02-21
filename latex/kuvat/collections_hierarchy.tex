@@ -21,16 +21,12 @@
     \end{scope}
 
     \draw [arrow] (traversable) -- (iterable);
-
     \draw [arrow] (iterable) -- (set);
     \draw [arrow] (iterable) -- (seq);
     \draw [arrow] (iterable) -- (map);
-    
     \draw [arrow] (seq) -- (indexedseq);
     \draw [arrow] (seq) -- (linearseq);
-    
     \draw [arrow] (set) -- (sortedset);
-
     \draw [arrow] (map) -- (sortedmap);
 
 \end{tikzpicture}

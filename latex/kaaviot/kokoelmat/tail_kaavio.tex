@@ -1,0 +1,31 @@
+\input{kaaviot/kokoelmat/colors.tex}
+
+\pgfplotstableread{
+    size    List    Vector      Array       ArrayBuffer
+    16      21      425         582         43
+    64      100     1970        4517        166
+    256     420     11800       55500       630
+}\haoyi
+
+\begin{tikzpicture}
+    \begin{axis}[
+        width=12cm,
+        height=9cm,
+        xtick=data,
+        xticklabels from table={\haoyi}{size},
+        ymin=0,
+        name={haoyi},
+        title={Haoyi},
+        xlabel={Kokoelman koko},
+        legend pos=north west,
+        legend style={draw=none},
+    ]
+
+    \addplot+[blue] table [y=List, x expr=\coordindex]{\haoyi};
+    \addplot+[red] table [y=Vector, x expr=\coordindex]{\haoyi};
+    \addplot+[green] table [y=Array, x expr=\coordindex]{\haoyi};
+    \addplot+[yellow] table [y=ArrayBuffer, x expr=\coordindex]{\haoyi};
+
+    \legend{List, Vector, Array, ArrayBuffer}
+\end{axis}
+\end{tikzpicture}

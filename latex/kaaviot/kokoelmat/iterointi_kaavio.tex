@@ -1,7 +1,21 @@
 \input{kaaviot/kokoelmat/colors.tex}
 
-\pgfplotstableread{kaaviot/kokoelmat/data/iterointi_haoyi.dat}\haoyi
-\pgfplotstableread{kaaviot/kokoelmat/data/iterointi_hobson.dat}\hobson
+\pgfplotstableread{
+    size    List    Vector  Array
+    4096    14100   16200   14200
+    16192   55000   62000   55600
+    65536   231000  256000  228000
+    262144  920000  1030000 910000
+}\haoyi
+
+\pgfplotstableread{
+    collection  result
+    List        396586
+    Vector      321700
+    Array       1226833
+    ArrayBuffer 412568
+    ListBuffer  3434340
+}\hobson
 
 \begin{tikzpicture}
     \begin{axis}[
@@ -13,12 +27,13 @@
         name={haoyi},
         title={Haoyi},
         xlabel={Kokoelman koko},
-        legend pos=north west
+        legend pos=north west,
+        legend style={draw=none},
     ]
 
-    \addplot+[list] table [y=List, x expr=\coordindex]{\haoyi};
-    \addplot+[vector] table [y=Vector, x expr=\coordindex]{\haoyi};
-    \addplot+[array] table [y=Array, x expr=\coordindex]{\haoyi};
+    \addplot+[blue] table [y=List, x expr=\coordindex]{\haoyi};
+    \addplot+[red] table [y=Vector, x expr=\coordindex]{\haoyi};
+    \addplot+[green] table [y=Array, x expr=\coordindex]{\haoyi};
 
     \legend{List, Vector, Array, ArrayBuffer}
 

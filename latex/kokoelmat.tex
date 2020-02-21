@@ -1,0 +1,96 @@
+\chapter{Kokoelmat} \label{Kokoelmat}
+Tutkimuksen kohteena on Scalan standardikirjaston kokoelmat versiosta 2.8 versioon 2.12. Standardikirjastossa on toteutus useimmille yleisimmille kokoelmaluokille kuten taulukoille, listoille, joukoille(\code{Set}) ja assosiaatiotauluille(\code{Map}). Scalan kokoelmaluokat ovat paketissa \code{scala.collection}. Muuttumattomat kokoelmat ovat alipaketissa \code{immutable} ja muuttuvat alipaketissa \code{mutable}.
+\cite{scalaCollections}
+
+Muuttumattoman kokoelman sisältämät alkiot eivät voi muuttua alustamisen jälkeen. Tämä tarkoittaa ettei alkioiden lisääminen, poistaminen tai uudelleenjärjestäminen ole mahdollista. Kokoelman muuttamista muistuttavat operaatiot, kuten \code{map}, \code{reverse}, \\\code{fold} ja kokoelmien yhdistäminen, palauttavat aina uuden kokoelman jättäen alkuperäisen kokoelman ennalleen. Käytännössä kuitenkaan aina ei kaikkia muuttumattoman kokoelman alkioita ei tarvitse kopioida, vaan tietorakenteet pyrkivät käyttämään hyväkseen rakenteellista jakamista parantaakseen suorituskykyä ja optimoidakseen muistinkäyttöä. Muuttuvissa kokoelmissa on nimensä mukaisesti mahdollista vaihtaa alkioiden järjestystä, lisätä ja poistaa alkioita kokoelmasta luomatta uutta kokoelmaa.
+\cite{scalaCollections}
+\cite[Luku 22]{prorgrammingInScala3rd}
+
+Kokoelmaluokat noudattavat piirreluokkien määrittelemää hierarkiaa, joka on paketissa \code{scala.collection}. Hierarkia on sama sekä muuttumattomille että muuttuville kokoelmille. Ylimpänä hierarkiassa on \code{Traverable}-piirreluokka, jolla on yksi välitön aliluokka, \code{Iterable}. \code{Iterable}:lla on kolme välitöntä aliluokkaa \code{Seq}, \code{Set} ja \code{Map}, jotka edustavat järjestyksellisiä kokoelmia, joukkoja ja assosiaatiotauluja. Kuvassa \ref{kokoelmahierarkia} näytetään lisäksi vielä muutama aliluokka.
+\cite{scalaCollections}
+\begin{figure}[h]
+    \centering\input{kuvat/collections_hierarchy.tex}
+    \caption{Kokoelmien hierarkia}\label{kokoelmahierarkia}
+\end{figure}
+
+
+\section{Järjestykselliset kokoelmat}
+\todo{Etsi parempi ilmaus järjestykselliselle}
+Suorituskykyvertailuun valittiin muuttumattomista kokoelmista \code{List}, joka tyypillinen rekursiivinen linkitetty rakenne funktionaaliessa ohjelmoinnissa, ja \code{Vector}, jossa alkion haku indeksin mukaan on tehokkaampaa. Muuttuvista kokoelmista valittiin \code{Array}, joka on kiinteän kokoinen taulukko, \code{ArrayBuffer}, joka on dynaamisesti kasvava taulukko ja \code{ListBuffer}, joka on dynaamisesti kasvava linkitetty rakenne. Kaikki kyseiset muuttuvat tietorakenteet ovat tyypillisiä olio-ohjelmoinnissa käytettyjä tietorakenteita.
+
+\code{List} on abstrakti luokka, joka kuvaa yhteen suuntaan linkitettyä rekursiivista muuttumatonta listaa, jolla on kaksi konkreettista toteutusta: \code{::} ja \code{Nil}. Epätyhjää listaa kuvaavassa luokassa \code{::}, on kaksi jäsentä: alkio, jota kutsutaan listan \textit{pääksi}, ja \textit{häntä} joka kuvaa listan muita alkioita. Tyhjää listaa ja listan loppumista kuvaa singleton-olio \code{Nil}. Esimerkiksi luvut 1 ja 2 sisältävä lista voidaan ilmaista näin: \code{1 :: 2 :: Nil}. Listan \code{head}-ja \code{tail}-operaatiot sekä listan alkuun lisääminen tapahtuu vakioajassa. Aikakompleksisuus alkion hakemiselle indeksin perusteella on lineaarinen.
+\cite{scalaAPI}
+\cite{scalaCollections}
+
+\code{Vector} on taulukon ominaisuuksia jäljittelevä muuttumaton tietorakenne, joka on toteutettu puurakenteena, jonka solmut ovat korkeintaan 32-alkioisia taulukoita. Lehtisolmujen taulukot sisältävät vektorin varsinaisia alkioita, ja muut solmut sisältävät alemman tason taulukoita. Jos esimerkiksi alustetaan uusi 70-alkioinen vektori, on se kolmen taulukon puu jossa juurisolmuna olevalla taulukolla on kolme lapsitaulukkoa, joista kahdessa on 32 alkiota ja yhdessä 6 alkiota. Tämä mahdollistaa taulukoiden rakenteellisen jakamisen eri vektori-instanssien kesken, joka vähentää kopioimista ja muistinkäyttöä. Satunnaisten haku-, muokkaus- ja poisto-operaatioiden aikakompleksisuus on log(32, N), eli operaatioiden voidaan ajatella tapahtuvan lähes vakioajassa.
+\cite{scalaCollections}
+\cite[Luku 4]{highPerformanceProgramming}
+
+\code{Array} on Scalassa erityinen kokoelma, joka mahdollistaa primitiivityyppisten-, \\viittaustyyppisten- ja geneeristen alkioiden tallentamisen. Primitiivityyppisiä alkioita käsitellään ilman alkioiden käärimistä olioiksi. Esimerkiksi kokonaislukuja sisältävä \\\code{Array[Int]} käänntyy Javan \code{int[]}-taulukoksi. Kuten Javassa, taulukon koko ei voi muuttaa alustamisen jälkeen. Verrattuna Javan taulukoihin, \code{Array} tarjoaa kuitenkin huomattavasti enemmän operaatioita. Haku-ja muokkausoperaatiot tapahtuvat vakioajassa. Häntäoperaatio vie kuitenkin lineaarisen ajan, sillä jokainen alkio, poislukien ensimmäinen, joudutaan kopioimaan uuteen taulukkoon.
+\cite{scalaCollections}
+
+\code{ArrayBuffer} on dynaamisesti kasvava listarakenne, joka käyttää alkioiden tallentamiseen taulukkoa. Tästä johtuen useimmat operaatiot vastaavat aikakompleksisuudeltaan \code{Array}:ta. Lisäksi \code{ArrayBuffer} mahdollistaa alkion lisäämisen taulukon alkuun, loppuun sekä keskelle. Alkuun ja keskelle lisäämisen aikakompleksisuus on lineaarinen. Muut operaatiot tapahtuvat pääasiassa vakioajassa, poislukien täyteen taulukkoon lisääminen, joka vie lineaarisen ajan.
+\cite{scalaCollections}
+
+\code{ListBuffer} on dynaamisesti kasvava muuttuva kokoelma joka on toteutettu linkitettynä rakenteena. Poiketen \code{List}:stä, \code{ListBuffer} mahdollistaa alkioiden lisäämisen rakenteen alkuun ja loppuun vakioajassa. Satunnaisen alkion haku-ja muokkausoperaatiot, sekä rakenteen keskelle lisääminen ovat aikakompleksisuudeltaan lineaarisia. Myös häntäoperaatio vie lineaarisen ajan, sillä kaikki hännän alkiot täytyy kopioida uuteen tietorakenteeseen.   
+\cite{scalaCollections}
+
+
+\section{Joukot ja assosiaatiotaulut}
+\todo{Tarkastellaanko ollenkaan?}
+
+
+\section{Suorituskykyvertailut}
+
+Tutkielmassa on käytetty kokoelmien suorituskykymittauksia on kahdesta eri lähteestä: Li Haoyi:n\cite{haoyiBenchmark} ja Toby Hobsonin\cite{hobsonBenchmark} mittauksista. Haoyin mittauksissa mitataan aikaa, joka operaatioiden suorittamisessa kestää, eli pienempi arvo tarkoittaa parempaa suorituskykyä. Hobsonin mittauksissa tarkastellaan operaatioiden määrää sekunnissa, jolloin suuri luku takoirttaa parempaa suorituskykyä. Hayoin mittauksissa suorituskykyä on mitattu eri kokoisilla kokoelmilla. Kaavioihin on valittu kyseisen operaation kannalta mielekkäät koot kokoelmille.
+
+Järjestyksellisten kokoelmien tapauksessa kiinnostuksen kohteena on yleisimpien operaatioiden suorituskyky: kokoelman luominen, iterointi, alkion satunnainen haku sekä lisääminen ja häntäoperaatio.
+
+Imperatiivisissa kielissä iterointia tehdään yleensä silmukoiden, tavallisesti \code{for} ja \code{while}, avulla. Funktionaalinen paradigma ei kuitenkaan tunne silmukoita ja iterointia tehdään tavallisesti korkeamman asteen funktioiden, kuten \code{map} ja \code{foreach}, avulla.
+\cite[Luku 2]{prorgrammingInScala3rd}
+Seuraavaksi esitellään molemmat tavat tulostamalla listan parilliset luvut kahdella kerrottuna:
+\begin{figure}[h]
+    \begin{lstlisting}
+        val list = List.range(1, 11)
+
+        // Imperatiivisesti
+        for(i <- list)
+            if (i % 2 == 0) println(i*2)
+
+        // Funktionaalisesti
+        list.filter(_ % 2 == 0).map(_ * 2).foreach(println)
+    \end{lstlisting}
+    \caption{Iterointi imperatiivisesti ja funktionaalisesti}\label{iterointi_esim}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \input{kaaviot/kokoelmat/iterointi_kaavio.tex}
+    \caption{Iterointi}\label{iterointi_kaavio}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \input{kaaviot/kokoelmat/satunnainenhaku_kaavio.tex}
+    \caption{Satunnainen haku}\label{satunnainenHaku_kaavio}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \input{kaaviot/kokoelmat/kokoelman_luominen_kaavio.tex}
+    \caption{Kokoelman luominen}\label{kokoelmanLuominen_kaavio}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \input{kaaviot/kokoelmat/append_kaavio.tex}
+    \caption{Kokoelman loppuun lisääminen}\label{kokoelmanLoppuunLisaaminen_kaavio}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \input{kaaviot/kokoelmat/tail_kaavio.tex}
+    \caption{Häntäoperaatio}\label{hantaoperaatio_kaavio}
+\end{figure}
+
+\todo{Laiskat kokoelmat?}

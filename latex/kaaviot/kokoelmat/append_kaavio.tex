@@ -1,0 +1,33 @@
+\input{kaaviot/kokoelmat/colors.tex}
+
+\pgfplotstableread{
+    collection              result
+    List                    307
+    List(prepend)           39799
+    Vector                  26882
+    Array*                  49790
+    ArrayBuffer             173677
+    ListBuffer              69692
+    ListBuffer(prepend)     39799
+}\hobson
+
+% "As you can see in the source, I actually allocated a 1000 element array then copied each element into the slot so it’s not strictly an append operation."
+
+\begin{tikzpicture}
+    \begin{axis}[
+        at={(haoyi.south east)},
+        ybar,
+        width=12cm,
+        height=9cm,
+        ymin=0,
+        xtick=data,
+        title={Hobson},
+        symbolic x coords={List, List(prepend), Vector, Array*, ArrayBuffer, ListBuffer, ListBuffer(prepend)},
+        xticklabel style={rotate=45, anchor=north east},
+    ]
+    
+    \addplot table[x=collection, y=result]{\hobson};
+
+\end{axis}
+
+\end{tikzpicture}
