@@ -1,5 +1,3 @@
-\input{kaaviot/kokoelmat/colors.tex}
-
 \pgfplotstableread{
     size    List::  Vector:+    Array:+ Array-prealloc  ArrayBuffer
     64      301     1730        1460    186             691
@@ -14,6 +12,7 @@
         xtick=data,
         xticklabels from table={\haoyi}{size},
         ymin=0,
+        ymax=55000,
         name={haoyi},
         title={Haoyi},
         xlabel={Kokoelman koko},

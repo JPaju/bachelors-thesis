@@ -16,7 +16,10 @@
         ymin=0,
         xtick=data,
         title={Hobson},
-        symbolic x coords={List, Vector, Array, ArrayBuffer, ListBuffer}
+        ylabel={ops/s},
+        symbolic x coords={List, Vector, Array, ArrayBuffer, ListBuffer},
+        nodes near coords,
+        every node near coord/.append style={/pgf/number format/fixed},
     ]
     
     \addplot table[x=collection, y=result]{\hobson};

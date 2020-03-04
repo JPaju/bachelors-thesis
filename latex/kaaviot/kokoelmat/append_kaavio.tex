@@ -1,5 +1,3 @@
-\input{kaaviot/kokoelmat/colors.tex}
-
 \pgfplotstableread{
     collection              result
     List                    307
@@ -22,7 +20,10 @@
         ymin=0,
         xtick=data,
         title={Hobson},
+        ylabel={ops/s},
         symbolic x coords={List, List(prepend), Vector, Array*, ArrayBuffer, ListBuffer, ListBuffer(prepend)},
+        nodes near coords,
+        every node near coord/.append style={/pgf/number format/fixed},
         xticklabel style={rotate=45, anchor=north east},
     ]
     

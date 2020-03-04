@@ -1,5 +1,3 @@
-\input{kaaviot/kokoelmat/colors.tex}
-
 \pgfplotstableread{
     size    List    Vector  Array
     4096    14100   16200   14200
@@ -11,15 +9,15 @@
 \pgfplotstableread{
     collection  result
     List        396586
-    Vector      321700
-    Array       1226833
-    ArrayBuffer 412568
-    ListBuffer  3434340
+    Vector      402363
+    Array       321700
+    ArrayBuffer 1226833
+    ListBuffer  412568
 }\hobson
 
 \begin{tikzpicture}
     \begin{axis}[
-        width=0.52*\textwidth,
+        width=0.55*\textwidth,
         xshift=-2cm,
         xtick=data,
         xticklabels from table={\haoyi}{size},
@@ -42,13 +40,18 @@
     \begin{axis}[
         at={(haoyi.south east)},
         xshift=1cm,
-        width=0.52*\textwidth,
+        width=0.55*\textwidth,
         ybar,
         ymin=0,
         xtick=data,
         xticklabel style={rotate=45, anchor=north east},
         title={Hobson},
-        symbolic x coords={List, Vector, Array, ArrayBuffer, ListBuffer}
+        symbolic x coords={List, Vector, Array, ArrayBuffer, ListBuffer},
+        nodes near coords,
+        every node near coord/.append style={
+            /pgf/number format/fixed,
+            font=\scriptsize
+        },
     ]
     
     \addplot table[x=collection, y=result]{\hobson};
