@@ -489,25 +489,26 @@
 
 %% Scala source code formatting 
 \lstset{
-    language=Scala,%
-    xleftmargin=4mm,%
-    aboveskip=3mm,%
-    belowskip=3mm,%
-    fontadjust=true,%
-    columns=[c]fixed,%
-    keepspaces=true,%
-    basewidth={0.58em, 0.53em},%
-    tabsize=2,%
-    basicstyle=\renewcommand{\baselinestretch}{0.95}\ttfamily,%
-    commentstyle=\itshape,%
-    keywordstyle=\bfseries,%
-    mathescape=true,%
-    escapechar=¤,%
-    captionpos=b,%
-    framerule=0.3pt,%
-    firstnumber=0,%
-    numbersep=1.5mm,%
-    numberstyle=\tiny,%
+    language=Scala,
+    xleftmargin=4mm,
+    aboveskip=3mm,
+    belowskip=3mm,
+    fontadjust=true,
+    columns=[c]fixed,
+    keepspaces=true,
+    basewidth={0.58em, 0.53em},
+    tabsize=2,
+    basicstyle=\renewcommand{\baselinestretch}{0.95}\ttfamily,
+    commentstyle=\itshape,
+    keywordstyle=\bfseries,
+    mathescape=true,
+    captionpos=b,
+    framerule=0.3pt,
+    firstnumber=0,
+    numbersep=1.5mm,
+    numberstyle=\tiny,
+    breaklines=true,
+    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
 }
 
 \newcommand{\code}[1]{\lstinline{#1}}
