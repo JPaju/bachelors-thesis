@@ -511,5 +511,6 @@
     postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
 }
 
-\newcommand{\code}[1]{\lstinline{#1}}
+\newcommand{\code}[1]{\lstinline[breaklines=false]{#1}}
+\newcommand{\codebl}[1]{\lstinline{#1}}
 \newcommand{\todo}[1]{{\color{red} TODO: {#1}}}
