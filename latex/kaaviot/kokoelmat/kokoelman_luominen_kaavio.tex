@@ -1,8 +1,8 @@
 \pgfplotstableread{
-    size    List::  Vector:+    Array:+ Array-prealloc  ArrayBuffer
-    64      301     1730        1460    186             691
-    1024    4900    28600       260000  2710            10840
-    4096    19800   324000      3170000 11000           43000
+    size    List::  Vector:+ Array.toVector Array:+ Array-prealloc  ArrayBuffer
+    64      301     1730     903            1460    186             691
+    1024    4900    28600    12850          260000  2710            10840
+    4096    19800   324000   51100          3170000 11000           43000
 }\haoyi
 
 \begin{tikzpicture}
@@ -22,11 +22,12 @@
 
     \addplot+[blue] table [y=List::, x expr=\coordindex]{\haoyi};
     \addplot+[red] table [y=Vector:+, x expr=\coordindex]{\haoyi};
+    \addplot+[violet] table [y=Array.toVector, x expr=\coordindex]{\haoyi};
     \addplot+[green] table [y=Array:+, x expr=\coordindex]{\haoyi};
     \addplot+[black] table [y=Array-prealloc, x expr=\coordindex]{\haoyi};
-    \addplot+[yellow] table [y=ArrayBuffer, x expr=\coordindex]{\haoyi};
+    \addplot+[brown] table [y=ArrayBuffer, x expr=\coordindex]{\haoyi};
 
-    \legend{List::, Vector:+, Array:+, Array-prealloc, ArrayBuffer}
+    \legend{List::, Vector:+, Array.toVector, Array:+, Array-prealloc, ArrayBuffer}
 
     \end{axis}
 
