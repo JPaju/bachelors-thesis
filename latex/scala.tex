@@ -1,11 +1,11 @@
 \chapter{Scala} \label{Scala}
-Scala on staattisesti tyypitetty moniparadigmainen käännettävä ohjelmointikieli, joka yhdistää funktionaalisen ohjelmoinnin ja olio-ohjelmoinnin ominaisuuksia. Scala on korkean tason kieli ja sen syntaksi on kompaktia ja eleganttia. Scalan kääntäjä ja tyyppijärjestelmä takaa tyyppiturvallisuuden kääntämisen aikana, muutamaa poikkeusta lukuunottamatta. Scala on yhteensopiva Javan kanssa, ja se mahdollistaa Java-kirjastojen käyttämisen suoraan Scalasta. Scala-koodi on tarkoitettu käännettäväksi Javan tavukoodiksi, ja sitä ajetaan Javan virtuaalikoneessa (JVM). Tässä tutkielmassa tarkastellaan Scalan versiota 2.12.10.
+Scala on staattisesti tyypitetty moniparadigmainen käännettävä ohjelmointikieli, joka yhdistää funktionaalisen ohjelmoinnin ja olio-ohjelmoinnin ominaisuuksia. Scala on korkean tason kieli ja sen syntaksi on kompaktia ja eleganttia. Scalan kääntäjä ja tyyppijärjestelmä takaavata tyyppiturvallisuuden kääntämisen aikana muutamaa poikkeusta lukuunottamatta. Scala-koodi on tarkoitettu käännettäväksi Javan tavukoodiksi, ja se mahdollistaa Java-kirjastojen käyttämisen suoraan Scalasta. Tavukoodia ajetaan Javan virtuaalikoneessa (JVM). Tässä tutkielmassa tarkastellaan Scalan versiota 2.12.10.
 \cite[Introduction]{tourOfScala}
 \cite[Luku 2]{prorgrammingInScala3rd}
 
 
 \section{Muuttujat} \label{Muuttujat}
-Scalassa on tavallisten muuttujien lisäksi vakioita, jotka ovat muuttujia joiden arvoa ei alustuksen jälkeen voi muuttaa. Vakion määritelyyn käytetään avainsanaa \code{val} ja muuttujan määrittelyyn \code{var}. Funktionaalisessa Scalassa käytetään pääasiassa \code{val}-avainsanalla määriteltyjä muuttujia, ja imperatiivisessa tyylissä voidaan käyttää molempia.
+Scalassa on tavallisten muuttujien lisäksi vakioita, jotka ovat muuttujia, joiden arvoa ei alustuksen jälkeen voi muuttaa. Vakion määrittelyyn käytetään avainsanaa \code{val} ja muuttujan määrittelyyn \code{var}. Funktionaalisessa Scalassa käytetään pääasiassa \code{val}-avainsanalla määriteltyjä muuttujia, ja imperatiivisessa tyylissä voidaan käyttää molempia.
 
 Muuttujan nimen jälkeen määritellään muuttujan tyyppi, joka erotetaan muuttujan nimesta kaksoispisteellä. Esimerkiksi \code{val x: Int = 1} alustaa kokonaislukuvakion x, jonka arvo on 1. Muuttujan tyyppimäärittelyn voi jättää myös kirjoittamatta, sillä Scala-kääntäjä osaa yleensä päätellä muuttujan tyypin asetetun arvon perusteella. Edellisen esimerkin voi siis halutessaan kirjoittaa muodossa \code{val x = 1}, ja Scala osaa päätellä muuttujan olevan tyypiltään kokonaisluku.
 \cite[Basics]{tourOfScala}
@@ -15,7 +15,7 @@ Muuttujat ovat myös staattisesti tyypitettyjä, joten muuttujan tyyppi ei voi m
 
 
 \section{Tietotyypit}
-Scala on puhtaasti oliokieli, eli kaikki arvot ja muuttujat ovat olioita. Jokainen Scalan tietotyyppi periin luokan \code{Any} ja luokka \code{Nothing} on jokaisen tietotyypin alaluokka. Scalassa luokka voi olla arvoluokka tai viiteluokka. Arvoluokat perivät luokan \code{AnyVal} ja niihin ei voi sijoittaa null-arvoa. Viiteluokat perivät luokan \code{AnyRef}, joka on tyyppialias Javan luokalle \code{Object}. Jokaisen viiteluokan alaluokka on \code{Null}. Tietotyyppien hierarkia on kuvattu kuvassa \ref{tyyppihierarkia}.
+Scala on puhtaasti oliokieli, eli kaikki arvot ja muuttujat ovat olioita. Jokainen Scalan tietotyyppi perii luokan \code{Any} ja luokka \code{Nothing} on jokaisen tietotyypin alaluokka. Scalassa luokka voi olla arvoluokka tai viiteluokka. Arvoluokat perivät luokan \code{AnyVal} ja niihin ei voi sijoittaa null-arvoa. Viiteluokat perivät luokan \code{AnyRef}, joka on tyyppialias Javan luokalle \code{Object}. Jokaisen viiteluokan alaluokka on \code{Null}. Tietotyyppien hierarkia on kuvattu kuvassa \ref{tyyppihierarkia}.
 \cite[Luku 5]{prorgrammingInScala3rd}
 
 \begin{figure}[h]
@@ -24,7 +24,7 @@ Scala on puhtaasti oliokieli, eli kaikki arvot ja muuttujat ovat olioita. Jokain
     \label{tyyppihierarkia}
 \end{figure}
 
-Alkeistietotyyppejä kuvaavat arvoluokat \code{Byte}, \code{Short}, \code{Int}, \code{Long}, \code{Char}, \code{Float}, \code{Double}, \code{Boolean} ja \code{Unit}. Kaikki paitsi viimeinen vastaavat Javan vastaavia kääreluokkia. \code{Unit} on erityinen tietotyyppi, joka kuvastaa funktion tyhjää paluuarvoa. Sen voi ajatella vastaavan Javan void-avainsanaa. Merkkijonoja Scalassa kuvaa tietotyyppi \code{String} joka on tyyppialias Javan merkkijonoa kuvaavalle tietotyypille.
+Alkeistietotyyppejä kuvaavat arvoluokat \code{Byte}, \code{Short}, \code{Int}, \code{Long}, \code{Char}, \code{Float}, \code{Double}, \code{Boolean} ja \code{Unit}. Kaikki paitsi \code{Unit} vastaavat Javan vastaavia kääreluokkia. \code{Unit} on erityinen tietotyyppi, joka kuvastaa funktion tyhjää paluuarvoa. Sen voi ajatella vastaavan Javan void-avainsanaa. Merkkijonoja Scalassa kuvaa tietotyyppi \code{String}, joka on tyyppialias Javan merkkijonoa kuvaavalle tietotyypille.
 \cite[Luku 5]{prorgrammingInScala3rd}
 
 Scalan alkeistietotyypit muutetaan käännösvaiheessa primitiivityypeiksi, esimerkiksi Scalan \code{Int} käännetään 32-bittiseksi sanaksi, aivan kuten Javan \code{int}. Tämä takaa yhteensopivuuden Java-kirjastojen kanssa. Se parantaa myös suorituskykyä, sillä primitiiviarvolle ei tarvitse allokoida muistia ajon aikana.
@@ -44,7 +44,7 @@ Ehtolauseita kirjoitetaan Scalassa \textit{if/else}-lausekkeiden avulla. Lauseke
     }
     // Tulostaa "True"
 \end{lstlisting}
-Scalan if-lausekeella on myös arvo, eli if-lauseke palauttaa arvon. Arvon palauttava if-lauseke on siis funktionaalinen, koska sillä on arvo. Esimerkiksi \code{val y = if (x >= 0) \"positive\" else \"negative\"} asettaa muuttujan \code{y} arvoksi joko merkkijonon "positive" tai "negative", riippuen muuttujan \code{x} arvosta. Huomattavaa on myös, että if-lauseke voidaan kirjoittaa yhdelle riville ilman aaltosulkeita. 
+Scalan if-lausekkeella on myös arvo, eli if-lauseke palauttaa arvon. Arvon palauttava if-lauseke on siis funktionaalinen, koska sillä on arvo. Esimerkiksi \codebl{val y = if (x >= 0) \"positive\" else \"negative\"} asettaa muuttujan \code{y} arvoksi joko merkkijonon "positive" tai "negative", riippuen muuttujan \code{x} arvosta. Huomattavaa on myös, että if-lauseke voidaan kirjoittaa yhdelle riville ilman aaltosulkeita. 
 \cite[Luku 2.1]{scalaForTheImpatient}
         
 \subsection{Silmukat}
@@ -61,7 +61,7 @@ Silmukoita Scalassa on kolmenlaisia: \code{while}, \code{do} ja \code{for}. Whil
 Yllä oleva esimerkki ei suorita while-silmukkaa kertaakaan, ja do-silmukan kerran.
 \cite[Luku 2.5]{scalaForTheImpatient}
 
-Scalan \code{for}-lauseke on monipuolisempi, kuin monissa muissa kielissä. Sitä voi käyttää perinteiseen tapaan silmukkana, jolloin for-lausekkeen \textit{generaattori} antaa määriteltyjä arvoja yksi kerrallaan muuttujan \code{i} kautta. Lauseketta voidaan käyttää myös usean generaattorin kanssa ja arvoja voidaan suodattaa lausekkeen sisällä. Kuten if-lauseke, myös for-lauseke voi palauttaa arvon. Seuraavaksi esimerkki kummastakin käyttötavasta.
+Scalan \code{for}-lauseke on monipuolisempi kuin monissa muissa kielissä. Sitä voi käyttää perinteiseen tapaan silmukkana, jolloin for-lausekkeen \textit{generaattori} antaa määriteltyjä arvoja yksi kerrallaan muuttujan \code{i} kautta. Lauseketta voidaan käyttää myös usean generaattorin kanssa ja arvoja voidaan suodattaa lausekkeen sisällä. Kuten if-lauseke, myös for-lauseke voi palauttaa arvon. Seuraavaksi esimerkki kummastakin käyttötavasta.
 \begin{lstlisting}
     for (i <- 1 to 10)
         println(i)
@@ -84,7 +84,7 @@ Scalassa funktio palauttaa automaattisesti viimeisen lausekkeensa arvon, joten \
 \cite[Basics]{tourOfScala}
 
 \subsection{Funktioliteraalit}
-Funktioliteraali on funktio, jota käsitellään kuten mitä tahansa muuttujaa. Yleensä funktioliteraali sijoitetaan muuttujaan, tai annetaan parametriksi toiselle funktiolle. Kuten muillakin muuttujilla, funktioilla ja metodeilla on Scalassa aina tyyppi. Tyypin voi määritellä eksplisiittisesti, mutta monesti Scala osaa päätellä funktion tyypin.
+Funktioliteraali on funktio, jota käsitellään kuten mitä tahansa muuttujaa. Yleensä funktioliteraali sijoitetaan muuttujaan tai annetaan parametriksi toiselle funktiolle. Kuten muillakin muuttujilla, funktioilla ja metodeilla on Scalassa aina tyyppi. Tyypin voi määritellä eksplisiittisesti, mutta monesti Scala osaa päätellä funktion tyypin.
 Seuraavassa esimerkissä määritellään kummallakin tavoilla funktio, joka kertoo onko parametrina annettu kokonaisluku parillinen. Funktion tyyppi on siis \code{Int => Boolean}.
 \cite[Luku 8]{prorgrammingInScala3rd}
 \begin{lstlisting}
@@ -93,7 +93,7 @@ Seuraavassa esimerkissä määritellään kummallakin tavoilla funktio, joka ker
 \end{lstlisting}
 
 \subsection{Korkeamman asteen funktiot}
-Funktio voi ottaa parametriksi toisen funktiohin ja funktio voi palauttaa funktion. Tälläisiä funktioita kutsutaan \textit{korkeamman asteen funktioiksi}. Korkeamman asteen funktiot ovat yksi funktionaalisen ohjelmoinnin kulmakivistä. Seuraavassa esitellään korkeamman asteen funktio, joka ottaa parametrina kokonaisluvun sekä funktion kokonaisluvusta kokonaislukuu, ja palauttaa kutsuu tätä funktiota parametrin kokonaisluvulle.
+Funktio voi ottaa parametriksi toisen funktion tai palauttaa funktion. Tälläisiä funktioita kutsutaan \textit{korkeamman asteen funktioiksi}. Korkeamman asteen funktiot ovat yksi funktionaalisen ohjelmoinnin kulmakivistä. Seuraavassa esitellään korkeamman asteen funktio, joka ottaa parametrina kokonaisluvun sekä funktion kokonaisluvusta kokonaislukuu, ja palauttaa kutsuu tätä funktiota parametrin kokonaisluvulle.
 \begin{lstlisting}
     def mapValue(v: Int, m: Int => Int): Int = m(v)
     
@@ -107,10 +107,10 @@ Kuten yllä olevasta esimerkistä huomataan, annetaan \code{double}-funktio para
 
 
 \section{Luokat ja oliot} \label{LuokatJaOliot}
-Scalassa on useita erilaisia luokka- ja oliotyyppejä, sekä tapoja luoda instansseja luokista. Tässä luvussa esitellään pääpiirteittäin erilaiset luokkatyypit.
+Scalassa on useita erilaisia luokka- ja oliotyyppejä sekä tapoja luoda instansseja luokista. Tässä luvussa esitellään pääpiirteittäin erilaiset luokkatyypit.
 
 \subsection{Class} \label{class}
-Luokka voidaan määritellä Scalassa \code{class}-avainsanalla. Luokka voi olla tyhjä, tai se voi sisältää metodeita ja muuttujia. Luokasta luodaan instanssi \code{new}-avainsanalla. Luokan sisältämät kentät voidaan määritellä konstruktorissa heti luokan nimen jälkeen suluissa. Konstruktorissa määritellyt kentät ovat oletuksena \code{private val}. Luokasta saadaan uusi instanssi \code{new}-avainsanan avulla. Ihmistä kuvaava luokka ja instanssi voidaan määritellä seuraavalla tavalla:
+Luokka voidaan määritellä Scalassa \code{class}-avainsanalla. Luokka voi olla tyhjä tai se voi sisältää metodeita ja muuttujia. Luokasta luodaan instanssi \code{new}-avainsanalla. Luokan sisältämät kentät voidaan määritellä konstruktorissa heti luokan nimen jälkeen suluissa. Konstruktorissa määritellyt kentät ovat oletuksena \code{private val}. Luokasta saadaan uusi instanssi \code{new}-avainsanan avulla. Ihmistä kuvaava luokka ja instanssi voidaan määritellä seuraavalla tavalla:
 \begin{lstlisting}
     class Person(val name: String, var age: Int) {
         def isAdult = age >= 18
@@ -122,7 +122,7 @@ Luokassa Person on kaksi kenttää: julkinen muuttumaton kenttä nimi ja julkine
 
 
 \subsection{Case class} \label{caseclass}
-Scalassa on myös erityisiä case-luokkia, joita käytetään yleensä kuvaamaan muuttumatonta dataa. Case-luokka määritellään kuten tavallinen luokka, mutta konstruktorissa määriteltävät kentät ovat oletuksena \code{public val}. Case-luokkaan voidaan määräitellä metodeita samoin kun tavalliseenkin luokkaan. Case-luokan instanssia luotaessa ei tarvitse käyttää \code{new}-avainsanaa. Puhelinmallia kuvaava case-luokka ja instanssi voidaan määritellä seuraavalla tavalla:
+Scalassa on myös erityisiä case-luokkia, joita käytetään yleensä kuvaamaan muuttumatonta dataa. Case-luokka määritellään kuten tavallinen luokka, mutta konstruktorissa määriteltävät kentät ovat oletuksena \code{public val}. Case-luokkaan voidaan määräitellä metodeita samoin kuin tavalliseenkin luokkaan. Case-luokan instanssia luotaessa ei tarvitse käyttää \code{new}-avainsanaa. Puhelinmallia kuvaava case-luokka ja instanssi voidaan määritellä seuraavalla tavalla:
 \begin{lstlisting}
     case class Phone(brand: String, model: String)
     val p = Phone("Google", "Pixel4")
@@ -137,7 +137,7 @@ Tavallisia luokkia käytetään varsinkin oliotyylisessä ohjelmoinnissa, kun ta
 Useat muut oliokielet tarjoavat mahdollisuuden kirjoittaa staattisia luokkia tai staattisia kenttiä luokkiin. Scalassa tälläistä staattisuutta ei ole, vaan vastaava toiminnallisuus mahdollistetaan erityisien \textit{singleton}-olioiden kautta. Singleton-oliosta on ajon aikana olemassa vain yksi instanssi, ja Scala luo sen automaattisesti. Singleton-olion on mahdollista periä luokka. Viittaaminen olioon tapahtuu yksinkertaisesti olion nimellä.
 \cite[Singleton objects]{tourOfScala}
 
-Singleton-olioita voidaan kutsua myös kumppaniolioiksi jos se on määritelty saman nimisen luokan yhteydessä. Kumppanioliot näkevät ilmentymiensä yksityiset kentät, ja ilmentymät näkevät kumppaniolionsa yksityiset kentät. Luvun \ref{caseclass} Phone-luokalle voidaan luoda kumppaniolio seuraavalla tavalla:
+Singleton-oliota voidaan kutsua myös kumppaniolioksi, jos se on määritelty saman nimisen luokan yhteydessä. Kumppanioliot näkevät ilmentymiensä yksityiset kentät, ja ilmentymät näkevät kumppaniolionsa yksityiset kentät. Luvun \ref{caseclass} Phone-luokalle voidaan luoda kumppaniolio seuraavalla tavalla:
 \begin{lstlisting}
     object Phone {
         def iphone11 = new Phone("Apple", "iPhone 11")
@@ -152,5 +152,5 @@ Tässä tapauksessa kumppanioliossa on vain yksi metodi, jonka avulla voidaan lu
 Piirretyyppejä käytetään Scalassa määrittelemään olioiden tarjoamien palveluiden rajapintoja ja mahdollistamaan ohjelmakoodin uudelleenkäytettävyyttä. Uusi piirretyyppi luodaan \code{trait}-avainsanalla. Piirretyyppien on myös sallittua periä toisia piirretyyppejä tai luokkia. Myös singleton-olioihin on mahdollista liittää piirretyyppejä. Piirretyypin voi ajatella olevan Javan rajapintaluokan ja abstraktin luokan yhdistelmä.
 \cite[Luku 6 ja 12]{prorgrammingInScala3rd}
 
-Piirretyypin jäseniksi voidaan määritellä metodeita tai muuttujia. Jäsenet voivat olla abstrakteja, tai konkreetteja. Abstraktille jäsenelle tulee toteuttavan luokan tarjota toteutus, kun taas konkreettielle jäsenille ei. Yhdessä piirreluokassa voi olla molempia abstrakteja ja konkreetteja jäseniä. Tietyissä erityistapauksissa metodi voidaan merkitä abstraktiksi, vaikka sille on annettu toteutus piirretyypissä.
+Piirretyypin jäseniksi voidaan määritellä metodeita tai muuttujia. Jäsenet voivat olla abstrakteja tai konkreetteja. Abstraktille jäsenelle tulee toteuttavan luokan tarjota toteutus, kun taas konkreettielle jäsenille ei. Yhdessä piirreluokassa voi olla sekä abstrakteja että konkreetteja jäseniä. Tietyissä erityistapauksissa metodi voidaan merkitä abstraktiksi, vaikka sille on annettu toteutus piirretyypissä.
 \cite[Luku 10]{scalaForTheImpatient}
