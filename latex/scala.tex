@@ -1,5 +1,5 @@
 \chapter{Scala} \label{Scala}
-Scala on staattisesti tyypitetty moniparadigmainen käännettävä ohjelmointikieli, joka yhdistää funktionaalisen ohjelmoinnin ja olio-ohjelmoinnin ominaisuuksia. Scala on korkean tason kieli ja sen syntaksi on kompaktia ja eleganttia. Scalan kääntäjä ja tyyppijärjestelmä takaavata tyyppiturvallisuuden kääntämisen aikana muutamaa poikkeusta lukuunottamatta. Scala-koodi on tarkoitettu käännettäväksi Javan tavukoodiksi, ja se mahdollistaa Java-kirjastojen käyttämisen suoraan Scalasta. Tavukoodia ajetaan Javan virtuaalikoneessa (JVM). Tässä tutkielmassa tarkastellaan Scalan versiota 2.12.10.
+Scala on staattisesti tyypitetty moniparadigmainen käännettävä ohjelmointikieli, joka yhdistää funktionaalisen ohjelmoinnin ja olio-ohjelmoinnin ominaisuuksia. Scala on korkean tason kieli ja sen syntaksi on kompaktia ja eleganttia. Scalan kääntäjä ja tyyppijärjestelmä takaavat tyyppiturvallisuuden kääntämisen aikana muutamaa poikkeusta lukuunottamatta. Scala-koodi on tarkoitettu käännettäväksi Javan tavukoodiksi, ja se mahdollistaa Java-kirjastojen käyttämisen suoraan Scalasta. Tavukoodia ajetaan Javan virtuaalikoneessa (JVM). Tässä tutkielmassa tarkastellaan Scalan versiota 2.12.10.
 \cite[Introduction]{tourOfScala}
 \cite[Luku 2]{prorgrammingInScala3rd}
 
@@ -44,7 +44,7 @@ Ehtolauseita kirjoitetaan Scalassa \textit{if/else}-lausekkeiden avulla. Lauseke
     }
     // Tulostaa "True"
 \end{lstlisting}
-Scalan if-lausekkeella on myös arvo, eli if-lauseke palauttaa arvon. Arvon palauttava if-lauseke on siis funktionaalinen, koska sillä on arvo. Esimerkiksi \codebl{val y = if (x >= 0) \"positive\" else \"negative\"} asettaa muuttujan \code{y} arvoksi joko merkkijonon "positive" tai "negative", riippuen muuttujan \code{x} arvosta. Huomattavaa on myös, että if-lauseke voidaan kirjoittaa yhdelle riville ilman aaltosulkeita. 
+Scalan if-lausekkeella on myös arvo, eli if-lauseke palauttaa arvon. Arvon palauttavaa if-lauseketta voidaan käyttää myös funktionaalisessa ohjelmoinnissa. Esimerkiksi \codebl{val y = if (x >= 0) \"positive\" else \"negative\"} asettaa muuttujan \code{y} arvoksi joko merkkijonon "positive" tai "negative", riippuen muuttujan \code{x} arvosta. Huomattavaa on myös, että if-lauseke voidaan kirjoittaa yhdelle riville ilman aaltosulkeita. 
 \cite[Luku 2.1]{scalaForTheImpatient}
         
 \subsection{Silmukat}
