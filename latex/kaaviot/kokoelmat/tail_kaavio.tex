@@ -3,6 +3,7 @@
     16      21      425         582         43
     64      100     1970        4517        166
     256     420     11800       55500       630
+    1024    2100    58400       82100      2510
 }\haoyi
 
 \begin{tikzpicture}
@@ -12,8 +13,7 @@
         xtick=data,
         xticklabels from table={\haoyi}{size},
         ymin=0,
-        ymax=1200,
-        name={haoyi},
+        ymax=4000,
         title={Haoyi},
         xlabel={Kokoelman koko},
         legend pos=north east,
@@ -23,7 +23,7 @@
     \addplot+[blue] table [y=List, x expr=\coordindex]{\haoyi};
     \addplot+[red] table [y=Vector, x expr=\coordindex]{\haoyi};
     \addplot+[green] table [y=Array, x expr=\coordindex]{\haoyi};
-    \addplot+[yellow] table [y=ArrayBuffer, x expr=\coordindex]{\haoyi};
+    \addplot+[violet] table [y=ArrayBuffer, x expr=\coordindex]{\haoyi};
 
     \legend{List, Vector, Array, ArrayBuffer}
 \end{axis}
