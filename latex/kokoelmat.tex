@@ -36,12 +36,7 @@ Suorituskykyvertailuun valittiin muuttumattomista kokoelmista \code{List}, joka 
 \cite{scalaCollections}
 
 
-\section{Joukot ja assosiaatiotaulut}
-\todo{Tarkastellaanko ollenkaan?}
-
-
 \section{Suorituskykyvertailut}
-
 Tutkielmassa on käytetty kokoelmien suorituskykymittauksia kahdesta eri lähteestä: Li Haoyi:n\cite{haoyiBenchmark} ja Toby Hobsonin\cite{hobsonBenchmark} mittauksista. Haoyin mittauksissa mitataan aikaa, jonka operaatioiden suorittaminen vie, eli pienempi arvo tarkoittaa parempaa suorituskykyä. Hobsonin mittauksissa tarkastellaan operaatioiden määrää sekunnissa, jolloin suuri luku takoirttaa parempaa suorituskykyä. Hayoin mittauksissa suorituskykyä on mitattu eri kokoisilla kokoelmilla. Kaavioihin on valittu kyseisen operaation kannalta mielekkäät koot kokoelmille.
 
 Järjestyksellisten kokoelmien tapauksessa kiinnostuksen kohteena on yleisimpien operaatioiden suorituskyky: kokoelman luominen, iterointi, alkion satunnainen haku sekä lisääminen ja häntäoperaatio. 
@@ -72,12 +67,13 @@ Hobsonin mittaukset kaaviossa \ref{satunnainenHaku_kaavio} tukevat tätä hypote
 \subsection{Kokoelman luominen}
 Kokoelmia rakennetaan useasti lisäämällä alkioita yksi kerrallaan kokoelmaan. Joskus kokoelma luodaan toisen kokoelman tai kokoelmatyypin alkioista. Taulukkoa (\code{Array}) luotaessa täytyy yleensä päättää miten monen alkion taulukko luodaan. Mikäli täyteen taulukkoon halutaan lisätä alkioita, täytyy luoda uusi suurempi taulukko ja kopioida kaikki alkiot alkuperäisestä taulukosta uuteen taulukkoon ja lisätä uusi alkio uuteen taulukkoon. Taulukon kaikkien alkioiden kopiointi uuteen taulukkoon todennäköisesti huonontaa suorituskykyä huomattavasti.
 
-Hayoin vertailuissa (kaavio \ref{kokoelmanLuominen_kaavio}) on testattu useita tapoja kokoelman luomiseen. \code{Array:+} kuvastaa tilannetta, jossa luodaan kokoelma lisäämällä alkio täyteen taulukkoon. Oletetusti sen suorituskyky on koko vertailun huonoin. \code{Array-prealloc} kuvaa tilannetta, jossa luodaan valmiiksi oikean kokoinen taulukko, ja sen suorituskyky on vertailun paras.
+Hayoin vertailuissa (kaavio \ref{kokoelmanLuominen_kaavio}) on testattu useita tapoja kokoelmien luomiseen. \code{Array:+} kuvastaa tilannetta, jossa luodaan kokoelma lisäämällä alkio täyteen taulukkoon. Oletetusti sen suorituskyky on koko vertailun huonoin. \code{Array}-prealloc kuvaa tilannetta, jossa luodaan valmiiksi oikean kokoinen taulukko, ja sen suorituskyky on vertailun paras.
+
+\code{List::} rakentaa linkitetyn rakenteen lisäämällä alkioita linkitetyn listan alkuun, ja sen on ilmoitettu tapahtuvan vakioajassa. \cite{scalaCollections} Hayoin mittaukset osoittavat tämän todeksi ja ainoastaan \code{Array}-prealloc oli \code{List}:aa suorituskykyisempi.
+
+Kun \code{ArrayBuffer}:n sisäinen taulukko tulee täyteen, luodaan uusi, kaksi kertaa alkuperäistä suurempi, taulukko ja vanhan taulukon arvot kopioidaan uuteen. Suorituskyky on linkitettyä rakennetta huonompi, mutta hieman \code{Array.toVector}:ia parempi.
 
 \code{Vector:+} aikakompleksisuuden pitäisi olla lähes vakio \cite{scalaCollections}, mutta mittausten perusteella suorituskyky on varsin heikko. Erityisesti kun luodaan yli 1024 alkion kokoelmia ja sisäiseen puurakenteeseen tulee yksi taso lisää, suorituskyky heikkenee merkittävästi. Suorituskykyisempi tapa luoda \code{Vector} on luoda toinen kokoelma ja kutsua sen \code{toVector}-metodia. Haoyin mittausten \code{Array.toVector} on tilanne, jossa luodaan \code{Array} pre-alloc-tyylisesti ja luodaan sen pohjalta \code{Vector}. Suorituskyky on huomattavasti parempi kuin lisäämällä alkioita yksi kerrallaan.
-
-
-
 
 \begin{figure}[h]
     \centering
@@ -85,14 +81,31 @@ Hayoin vertailuissa (kaavio \ref{kokoelmanLuominen_kaavio}) on testattu useita t
     \caption{Kokoelman luominen}\label{kokoelmanLuominen_kaavio}
 \end{figure}
 
+
 \begin{figure}[h]
     \centering
     \input{kaaviot/kokoelmat/append_kaavio.tex}
     \caption{Kokoelman loppuun lisääminen}\label{kokoelmanLoppuunLisaaminen_kaavio}
 \end{figure}
 
+\subsection{Kokoelman loppuun lisääminen}
+Asetelma Hobsonin mittauksessa kokoelman loppuun lisäämisestä on hieman samankaltainen kuin Haoyin kokoelman luomisen mittauksessa, mutta varsinkin \code{List} suoriutuu loppuun lisäämisestä huomattavasti heikommin. Loppuun lisättäessä, täytyy jokainen alkio kopioida uuteen kokoelmaan ja uusi alkio lisätä uuden kokoelman loppuun. \code{List}-prepend tarkoittaa tilannetta jossa alkio lisätään rakenteen alkuun, ja kokoelman järjestys käännetään. Kaaviosta \ref{kokoelmanLoppuunLisaaminen_kaavio} voidaan huomata, että tällä tavoin suorituskyky on jopa yli 100 kertaa parempi.
+
+Muuttuvasta linkitetystä rakenteesta, \code{ListBuffer}:sta on mittaus kummallakin edellisessä kappaleessa mainitulla tavalla. Suoraan kokoelman loppuun lisäämisellä saavutetaan paras suorituskyky, ja se on jopa yli 70\% parempi kuin lisäämällä alkuun ja kääntämällä kokoelman järjestys. Prepend-tyylillä suorituskyky on identtinen \code{List}-prepend kanssa. 
+
+Taulukoista \code{ArrayBuffer} suoriutuu selvästi parhaiten, ollen yli kolme kertaa parempi kuin seuraavaksi paras taulukkorakenne \code{Array}. On syytä huomioida, että kyseisessä mittauksessa luodaan valmiiksi oikean kokoinen \code{Array}. \code{Vector} suoriutuu tästäkin mittauksesta yllättävän huonosti, ollen noin 50\% huonompi kuin \code{Array} ja 30\% huonompi kuin \code{List}-prepend.
+
+
+\subsection{Häntäoperaatio}
+
 \begin{figure}[h]
     \centering
     \input{kaaviot/kokoelmat/tail_kaavio.tex}
     \caption{Häntäoperaatio}\label{hantaoperaatio_kaavio}
 \end{figure}
+
+Haoyin häntäoperaation suorituskykyä mittaavassa tutkimuksessa aloitetaan n-kokoisesta kokoelmasta ja tehdään häntäoperaatiota jäljelle jäävälle kokoelmalle, kunnes jäljellä on tyhjä kokoelma. Mittauksen tulos on kulunut aika, jolloin pieni arvo tarkoittaa hyvää suorituskykyä. Kaaviossa \ref{hantaoperaatio_kaavio} on mittauksen tulokset.
+
+\code{List} suoriutuu oletetusti parhaiten. Muuttumattoman linkitetyn rakenteen häntään saadaan viittaus yksinkertaisesti palauttamalla ensimmäisen alkion seuraaja, ja se tapahtuu aina vakioajassa. \code{ArrayBuffer} suoriutui mittauksessa vain hieman \code{List}:iä huonommin. 
+
+Selvästi huonoiten suoriutui \code{Array}. Tulos on oletettu, sillä jokaisella häntäoperaatiolla kaikki paitsi taulukon ensimmäinen alkio täytyy kopioida uuteen taulukkoon. \code{Vector} on hieman \code{Array}:ta parempi, mutta sen suorituskyky on 256:n alkion kokoelmalla jo noin 20 kertaa huonompi kuin kahdella suorituskykyisimmällä kokoelmalla.
