@@ -17,13 +17,14 @@
 
 \begin{tikzpicture}
     \begin{axis}[
-        width=0.55*\textwidth,
+        width=0.50*\textwidth,
         xshift=-2cm,
         xtick=data,
         xticklabels from table={\haoyi}{size},
         ymin=0,
         name={haoyi},
         title={Haoyi},
+        ylabel={ns},
         xlabel={Kokoelman koko},
         legend pos=north west,
         legend style={draw=none},
@@ -39,10 +40,11 @@
 
     \begin{axis}[
         at={(haoyi.south east)},
-        xshift=1cm,
-        width=0.55*\textwidth,
+        xshift=18mm,
+        width=0.50*\textwidth,
         ybar,
         ymin=0,
+        ylabel={ops/s},
         xtick=data,
         xticklabel style={rotate=45, anchor=north east},
         title={Hobson},
