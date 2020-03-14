@@ -17,7 +17,7 @@ Kokoelmaluokat noudattavat piirreluokkien määrittelemää hierarkiaa, joka on 
 \section{Järjestetyt kokoelmat}
 Suorituskykyvertailuun valittiin muuttumattomista kokoelmista \code{List}, joka tyypillinen rekursiivinen linkitetty rakenne funktionaaliessa ohjelmoinnissa, ja \code{Vector}, jossa alkion haku indeksin mukaan on tehokkaampaa. Muuttuvista kokoelmista valittiin \code{Array}, joka on kiinteän kokoinen taulukko, \code{ArrayBuffer}, joka on dynaamisesti kasvava taulukko ja \code{ListBuffer}, joka on dynaamisesti kasvava linkitetty rakenne. Kaikki kyseiset muuttuvat tietorakenteet ovat tyypillisiä olio-ohjelmoinnissa käytettyjä tietorakenteita.
 
-\code{List} on abstrakti luokka, joka kuvaa yhteen suuntaan linkitettyä rekursiivista muuttumatonta listaa, jolla on kaksi konkreettista toteutusta: \code{::} ja \code{Nil}. Epätyhjää listaa kuvaavassa luokassa \code{::} on kaksi jäsentä: alkio, jota kutsutaan listan \textit{pääksi}, ja \textit{häntä} joka kuvaa listan muita alkioita. Tyhjää listaa ja samalla listan loppumista kuvaa singleton-olio \code{Nil}. Esimerkiksi luvut 1 ja 2 sisältävä lista voidaan ilmaista näin: \code{1 :: 2 :: Nil}. Listan \code{head}-ja \code{tail}-operaatiot sekä listan alkuun lisääminen tapahtuvat vakioajassa. Aikakompleksisuus alkion hakemiselle indeksin perusteella on lineaarinen.
+\code{List} on abstrakti luokka, joka kuvaa yhteen suuntaan linkitettyä rekursiivista muuttumatonta listaa, jolla on kaksi konkreettista toteutusta: \codebl{case class ::[B](head: B, tail: List[B])} ja \code{case object Nil}. Epätyhjää listaa kuvaavassa luokassa \code{::} on kaksi jäsentä: alkio, jota kutsutaan listan \textit{pääksi}, ja \textit{häntä} joka kuvaa listan muita alkioita. Tyhjää listaa ja samalla listan loppumista kuvaa singleton-olio \code{Nil}. Esimerkiksi luvut 1 ja 2 sisältävä lista voidaan ilmaista näin: \code{1 :: 2 :: Nil}. Listan \code{head}-ja \code{tail}-operaatiot sekä listan alkuun lisääminen tapahtuvat vakioajassa. Aikakompleksisuus alkion hakemiselle indeksin perusteella on lineaarinen.
 \cite{scalaAPI}
 \cite{scalaCollections}
 
@@ -107,6 +107,13 @@ Aikaisemman testin tavoin \code{Vector} suoriutuu tästäkin mittauksesta huonom
 
 
 \subsection{Häntäoperaatio}
+Häntäoperaatio palauttaa kokoelman, jossa on kaikki paitsi ensimmäinen alkio. Muuttuvissa kokoelmissa tämä pakottaa yleensä kopioimaan kokoelman hännän uuteen kokoelmaan, jolloin aikakompleksisuus on lineaarinen. Muuttumattomissa kokoelmissa kopioimista voidaan vähentää tai jopa välttää kokonaan hyödyntämällä rakenteellista jakamista. Muuttumattoman \code{List}:n häntäoperaation aikakompleksisuus vakio on, sillä linkitetyn rakenteen häntään saadaan viittaus yksinkertaisesti palauttamalla ensimmäisen alkion seuraaja. \code{Vector}:n häntäoperaation aikakompleksisuudeksi ilmoitettu on käytännössä vakio\cite{scalaCollections}, vaikka todellisuudessa joitain alkioita täytyy kopioida.
+
+Haoyin\cite{haoyiBenchmark} häntäoperaation suorituskykyä mittaavassa tutkimuksessa aloitetaan n-kokoisesta kokoelmasta ja tehdään häntäoperaatiota jäljelle jäävälle kokoelmalle, kunnes jäljellä on tyhjä kokoelma. Mittauksen tulos on kulunut aika, jolloin pieni arvo tarkoittaa hyvää suorituskykyä. Kaaviossa \ref{hantaoperaatio_kaavio} on mittauksen tulokset.
+
+\code{List} suoriutuu mittauksissa oletetusti parhaiten. \code{ArrayBuffer} suoriutui varsin yllättäen vain hieman \code{List}:iä huonommin, vaikka aikakompleksisuuden voisi olettaa olevan lineaarinen. \code{Vector} suoriutui edellä mainittuja kokoelmia huomattavasti huonommin.
+
+Selvästi huonoiten suoriutui kuitenkin \code{Array}. Tulos on oletettu, sillä jokaisella häntäoperaatiolla kaikki paitsi taulukon ensimmäinen alkio täytyy kopioida uuteen taulukkoon. \code{Vector} on hieman \code{Array}:ta parempi, mutta sen suorituskyky on 256:n alkion kokoelmalla jo noin 20 kertaa huonompi kuin kahdella suorituskykyisimmällä kokoelmalla.
 
 \begin{figure}[h]
     \centering
@@ -114,10 +121,18 @@ Aikaisemman testin tavoin \code{Vector} suoriutuu tästäkin mittauksesta huonom
     \caption{Häntäoperaatio}\label{hantaoperaatio_kaavio}
 \end{figure}
 
-Haoyin\cite{haoyiBenchmark} häntäoperaation suorituskykyä mittaavassa tutkimuksessa aloitetaan n-kokoisesta kokoelmasta ja tehdään häntäoperaatiota jäljelle jäävälle kokoelmalle, kunnes jäljellä on tyhjä kokoelma. Mittauksen tulos on kulunut aika, jolloin pieni arvo tarkoittaa hyvää suorituskykyä. Kaaviossa \ref{hantaoperaatio_kaavio} on mittauksen tulokset.
 
-Muuttumattoman \code{List}:n häntäoperaation aikakompleksisuus vakio on, sillä linkitetyn rakenteen häntään saadaan viittaus yksinkertaisesti palauttamalla ensimmäisen alkion seuraaja. \code{Vector}:n häntäoperaation aikakompleksisuudeksi ilmoitettu on käytännössä vakio\cite{scalaCollections}, vaikka todellisuudessa alkioiden kopioimiselta ei vältytä. Muuttuvissa taulukkopohjaisissa kokoelmissa aikakompleksisuudeksi on ilmoitettu lineaarinen.
+\section{Johtopäätökset}
+Iteroinnissa kaikki kokoelmat suoriutuivat verrattain tasavertaisesti, poislukien \\\code{ArrayBuffer}:n loistava suorituskyky muihin verrattuna. Muiden kokoelmien välistä vaihtelua iteroinnin suorituskyvyssä saattaisi selittää esimerkiksi kääreluokan käyttö \code{Array}:n yhteydessä tai \code{Vector}:n puumainen rakenne, joka johtaa muutamaan epäsuoraan viittaukseen.
 
-\code{List} suoriutuu mittauksissa oletetusti parhaiten. \code{ArrayBuffer} suoriutui varsin yllättäen vain hieman \code{List}:iä huonommin, vaikka aikakompleksisuuden voisi olettaa olevan lineaarinen. \code{Vector} suoriutui myös hieman yllättäen edellä mainittuja huomattavasti huonommin.
+Satunnaisessa haussa taulukkopohjaiset kokoelmat olivat odotetusti suorituskykyisempiä kuin linkitetyt rakenteet, riippumatta siitä oliko kyseessä muuttuva vai muutumaton kokoelma. Taulukkopohjaisten kokoelmien välisiä eroja selittää mahdollisesti alkioiden löytymättömyys prosessorin välimuistista, jota todennäköisesti tapahtuu enemmän puumaisesti toteutetun \code{Vector}:n kohdalla kuin taulukkona toteutetussa \code{ArrayBuffer}:ssa.
 
-Selvästi huonoiten suoriutui kuitenkin \code{Array}. Tulos on oletettu, sillä jokaisella häntäoperaatiolla kaikki paitsi taulukon ensimmäinen alkio täytyy kopioida uuteen taulukkoon. \code{Vector} on hieman \code{Array}:ta parempi, mutta sen suorituskyky on 256:n alkion kokoelmalla jo noin 20 kertaa huonompi kuin kahdella suorituskykyisimmällä kokoelmalla.
+Kokoelman luomisen ja loppuun lisäämisen suorituskyvyissä oli huomattavia eroja riippuen käytettävästä metodista. Taulukkopohjaisten  kokoelman luominen \code{:+}-metodin avulla oli \code{Array}:n tapauksessa satoja kertoja hitaampaa kuin muilla tavoilla. Käyttötarkoitukseen sopivan kokoelman ja operaation valitsemisen merkitys on siis todella merkittävä.
+
+Myöskään häntäoperaation suorituskyvyssä muuttuvien ja muuttumattomien kokoelmien välille ei muodostunut merkittävää eroa \code{List}:n ja \code{ArrayBuffer}:n suoriutuessa hyvin sekä \code{Array}:n ja \code{Vector}:n suoriutuessa heikommin. 
+
+Muuttumattomista kokoelmista \code{List} tarjoaa hyvän suorituskyvyn kunhan tarvetta satunnaiselle haulle tai kokoelman loppuun lisäämiselle ei ole. \code{Vector} puolestaan tarjoaa hyvän suorituskyvyn satunnaisessa haussa, mutta häntäoperaatiota tulisi välttää sekä kokoelman rakentamiseen täytyy kiinnittää huomiota. Muuttuviin taulukkokokoelmiin verrattuna erityisesti loppuun lisäämisen ja kokoelman luomisen suorituskyvyssä joudutaan maksamaan pientä hintaa muuttumattomuudesta.
+
+Kokonaisvaltaisesti parhaan suorituskyvyn tarjoaa muuttuva \code{ArrayBuffer}, joka suoriutuu kaikista tutkituista operaatioista loistavasti, poislukien kokoelman luominen, jossa suorituskyky on keskinkertainen. Muuttuva linkitetty rakenne \code{ListBuffer} suoriutuu yleisesti hieman paremmin kuin vastaava muuttomaton kokoelma \code{List}, mutta ero on pieni.
+
+Tutkielmassa käytettyjen lähteiden perusteella ei noussut esiin säännönmukaisia eroavaisuuksia muuttuvien ja muuttumattomien kokoelmien suorituskyvystä. Kuhunkin käyttötarkoitukseen sopivan kokoelman valitseminen on suorituskyvyn kannalta todella tärkeää. Pahimmillaan käyttötarkoitukseen epäoptimaalisen kokoelman valinta voi johtaa yli sata kertaa huonompaan suorituskykyyn verrattuna käyttötarkoitukseen sopivaan kokoelmaan.
