@@ -508,7 +508,7 @@
     numbersep=1.5mm,
     numberstyle=\tiny,
     breaklines=true,
-    postbreak=\mbox{\textcolor{red}{$\hookrightarrow$}\space},
+    postbreak=\mbox{$\hookrightarrow$\space},
 }
 
 \newcommand{\code}[1]{\lstinline[breaklines=false]{#1}}
