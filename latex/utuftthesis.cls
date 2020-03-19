@@ -35,6 +35,7 @@
 \RequirePackage[page]{totalcount} % the total number of pages
 \RequirePackage{comment}          % LyX generated comments
 \RequirePackage{xcolor}
+\RequirePackage{xpatch}
 
 %% not used by the class
 % if you encounter package clashes, start by disabling these
@@ -252,6 +253,12 @@
 %
 \renewcommand{\baselinestretch}{1.655}
   
+% Remove empty parentheses from online sources if year-field is not specified.
+\xpatchbibdriver{online}
+  {\printtext[parens]{\usebibmacro{date}}}
+  {\iffieldundef{year}{}{\printtext[parens]{\usebibmacro{date}}}}
+  {}{}
+
 %% Modify the \printbibliography command
 \defbibheading{bibliography}{
   %\eofpages
