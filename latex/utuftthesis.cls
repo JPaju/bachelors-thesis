@@ -380,18 +380,18 @@
   \begin{entry}{}
   \item[\textsc{\@author}] \@title
   \end{entry}
-  \thesistype{#1},
-  \IsInteger{\totalpages}{
-    \pageref{endofpages} \pagesname{#1}%
-    \ifnum \totalpages > 0
-      , \totalpages\ \apppagesname{#1} \\
-    \else
-      \\
-    \fi
-  }{ \runagain{#1} \\
-  }
-  \labname{#1}\\
-  \titlecap{\monthname{#1}{\m@nth}} \ye@r\\
+  \thesistype{#1}, %
+  % \IsInteger{\totalpages}{%
+  %   \pageref{endofpages} \pagesname{#1}%
+  %   \ifnum \totalpages > 0
+  %     , \totalpages\ \apppagesname{#1} \\
+  %   \else
+  %     \\
+  %   \fi
+  % }{\runagain{#1} \\
+  % }
+  \\\labname{#1} \\
+  \monthname{#1}{\m@nth} \ye@r\\
   \rule{\linewidth}{1 pt}
   \\
 }
