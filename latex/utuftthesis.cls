@@ -380,7 +380,7 @@
   \begin{entry}{}
   \item[\textsc{\@author}] \@title
   \end{entry}
-  \thesistype{#1}, %
+  \thesistype{#1}, 26s., 0 liites.
   % \IsInteger{\totalpages}{%
   %   \pageref{endofpages} \pagesname{#1}%
   %   \ifnum \totalpages > 0
