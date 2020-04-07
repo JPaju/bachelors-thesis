@@ -50,6 +50,7 @@
 \DeclareStringOption[draft]{version}
 \DeclareStringOption[a4paper]{paper}
 \DeclareStringOption[finnish]{language}
+\DeclareStringOption[split]{biburlbreak}
 \DeclareBoolOption[true]{hidechapters}
 \DeclareBoolOption[false]{includereferences}
 \DeclareBoolOption[false]{realtimesnewroman}
@@ -137,6 +138,10 @@
     \renewcommand{\default}[1]{\ifbool{default}{##1}{}}
 }{}
 
+% Break long URL lines in bibliography 
+\setcounter{biburllcpenalty}{7000}
+\setcounter{biburlucpenalty}{8000}
+
 %% these are used as global variables on the magic pages
 %% feel free to modify for other languages / if the info is outdated
 \newcommand{\ye@r}{\the\year}
@@ -194,7 +199,7 @@
     \default{\p@btype}%
   \end{switch}}
 
-\newcommand{\monthname}[1]{\csname DTM#1monthname\endcsname}
+\newcommand{\monthname}[1]{\csname DTM#1Monthname\endcsname}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %

@@ -101,7 +101,7 @@ Asetelma Hobsonin mittauksessa\cite{hobsonBenchmark} kokoelman loppuun lisäämi
 
 Muuttuvasta linkitetystä rakenteesta, \code{ListBuffer}:sta on mittaus kummallakin edellisessä kappaleessa mainitulla tavalla. Suoraan kokoelman loppuun lisäämisellä saavutetaan paras suorituskyky, ja se on jopa yli 70 \% parempi kuin lisäämällä alkuun ja kääntämällä kokoelman järjestys. Prepend-tyylillä suorituskyky on identtinen \code{List}-prepend kanssa. 
 
-Taulukoista \code{ArrayBuffer} suoriutuu selvästi parhaiten ollen yli kolme kertaa parempi kuin seuraavaksi paras taulukkorakenne \code{Array}, vaikka kyseisessä mittauksessa luodaan valmiiksi oikean kokoinen \code{Array}. Tulos on yllättävä, sillä tuloksien voisi olettaa olevan lähes identtisiä. Mittauksen \cite{hobsonBenchmark} toteutuksessa on käytetty \code{Array.zipWithIndex}-metodia, joka muuttaa \code{Array}:n \code{WrappedArray}:ksi. Tämä voisi osaltaan selittää tulosta.
+Taulukoista \code{ArrayBuffer} suoriutuu selvästi parhaiten ollen yli kolme kertaa parempi kuin seuraavaksi paras taulukkorakenne \code{Array}, vaikka kyseisessä mittauksessa luodaan valmiiksi oikean kokoinen \code{Array}. Tulos on yllättävä, sillä tuloksien voisi olettaa olevan lähes identtisiä. Mittauksen \cite{hobsonBenchmark} toteutuksessa on käytetty \code{Array}-luokan metodia \code{zipWithIndex}, joka muuttaa \code{Array}:n \code{WrappedArray}:ksi. Tämä voisi osaltaan selittää tulosta.
 
 Aikaisemman testin tavoin \code{Vector} suoriutuu tästäkin mittauksesta huonommin kuin muut taulukkomaiset kokoelmat ollen noin 85 \% huonompi kuin \code{ArrayBuffer}. Syynä lienee kopioinnin tarve jokaisen alkion lisäämisen yhteydessä.
 
